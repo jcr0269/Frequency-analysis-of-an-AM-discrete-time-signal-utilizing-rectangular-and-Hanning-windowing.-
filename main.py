@@ -52,14 +52,14 @@ def DFT1(x, point):
 
 def hanning(xam, point):
     han = np.hanning(len(xam))
-    han = (han*xam)
-    A = fft(han, point)
+    han1 = (han*xam)
+    A = fft(han1, point)
     mag = np.abs(fftshift(A))
     freq1 = np.linspace(-0.5, 0.5, len(A))
-    return freq1, mag
+    return freq1, mag, han
 
-freq1, response = hanning(xam1, 128)
-freq2, response1 = hanning(xam2, 256)
+freq1, response, han = hanning(xam1, 128)
+freq2, response1, han1 = hanning(xam2, 256)
 freq3, response2 = DFT1(xam1, 128)
 freq4, response3 = DFT1(xam1, 256)
 
@@ -70,23 +70,26 @@ n = np.arange(N)
 T = N/sr
 freq = n/T
 
-# plt.plot(xn)
-# plt.show()
-# plt.plot(xc)
-# plt.show()
-# plt.plot(xam)
-# plt.show()
+plt.plot(xn)
+plt.show()
+plt.plot(xc)
+plt.show()
+plt.plot(xam)
+plt.show()
 plt.stem(freq, abs(dft), 'b',
          markerfmt=" ", basefmt="-b")
 plt.show()
 plt.plot(freq1, response)
 plt.show()
-# plt.plot(freq2, response1)
-# plt.show()
-# plt.plot(freq3, response2)
-# plt.show()
-# plt.plot(freq4, response3)
-# plt.show()
-
-
+plt.plot(freq2, response1)
+plt.show()
+plt.plot(freq3, response2)
+plt.show()
+plt.plot(freq4, response3)
+plt.show()
+plt.plot(han)
+plt.xlabel('hanning of 0 to 99')
+plt.show()
+plt.plot(han1)
+plt.show()
 
