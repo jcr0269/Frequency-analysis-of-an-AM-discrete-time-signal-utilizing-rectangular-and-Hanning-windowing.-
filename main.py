@@ -7,11 +7,11 @@ plt.close('all')
 f1 = 1/18
 f2 = 5/128
 fc = 50/128
-sr = 128
+sr = 255
 
 #0<n<255
 t = np.linspace(0,255,255)
-xn = np.cos(2*pi*(1/18)*t) + np.cos(2*pi*f2*t)
+xn = np.cos(2*pi*f1*t) + np.cos(2*pi*f2*t)
 xc = np.cos(2*pi*fc*t)
 xam = xn*xc
 
@@ -50,15 +50,13 @@ def DFT1(x, point):
     return freq1, response
 
 
-def hanning(x, point):
+def hanning(xam, point):
     han = np.hanning(len(xam))
     han = (han*xam)
     A = fft(han, point)
     mag = np.abs(fftshift(A))
     freq1 = np.linspace(-0.5, 0.5, len(A))
-    response = 20 * np.log10(mag)
-    response = np.clip(response, -200, 200)
-    return freq1, response
+    return freq1, mag
 
 freq1, response = hanning(xam1, 128)
 freq2, response1 = hanning(xam2, 256)
@@ -78,17 +76,17 @@ freq = n/T
 # plt.show()
 # plt.plot(xam)
 # plt.show()
-# plt.stem(freq, abs(dft), 'b',
-#          markerfmt=" ", basefmt="-b")
-# plt.show()
+plt.stem(freq, abs(dft), 'b',
+         markerfmt=" ", basefmt="-b")
+plt.show()
 plt.plot(freq1, response)
 plt.show()
 # plt.plot(freq2, response1)
 # plt.show()
-plt.plot(freq3, response2)
-plt.show()
-plt.plot(freq4, response3)
-plt.show()
+# plt.plot(freq3, response2)
+# plt.show()
+# plt.plot(freq4, response3)
+# plt.show()
 
 
 
